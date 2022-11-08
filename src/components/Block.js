@@ -1,9 +1,9 @@
-import React from "react";
+import React ,{ memo} from "react";
 import BlockStyle from './BlockStyle.module.css'
 
-export default function Block(props) {
+export default memo(function Block(props) {
     return (
-        <div className={BlockStyle.block}>
-        </div>
+        <button className={BlockStyle.block} value={props.value} onClick={props.blockClick}>
+        </button>
     )
-}
+})
