@@ -6,10 +6,12 @@ import { useState, useEffect } from 'react'
 function App () {
   const [pattern, setPattern] = useState([])
   const [level, setLevel] = useState(1)
-  const [playerBlockClick, setPlayerBlockClick] = useState(0)
+  const [playerBlockClick, setPlayerBlockClick] = useState()
+  // set it to negative one to get the correct value
+  const [clickRemaining, setClickRemaining] = useState(-1)
 
   useEffect(() => {
-    generatePattern()
+    generatePatterns()
   }, [])
 
   function delay (time) {
@@ -24,29 +26,35 @@ function App () {
     for (let index = 0; index < pattern.length; index++) {
       await delay(1000)
       console.log(pattern[index])
+      setClickRemaining(clickRemaining + 1)
     }
   }
 
-  function blockClick(event) {
+  function blockClick (event) {
     // (jsPerf) way to convert string to number
-    const value = +event.target.value;
+    const value = +event.target.value
     const getNumberInPattern = pattern[playerBlockClick]
 
-    if (value === getNumberInPattern) {
-      console.log("correct")
-    } else {
-      console.log("incorrect")
+    if (playerBlockClick <= clickRemaining) {
+      if (value === getNumberInPattern) {
+        console.log('correct')
+      } else {
+        console.log('incorrect')
+      }
+      setPlayerBlockClick(playerBlockClick + 1)
     }
-    setPlayerBlockClick(playerBlockClick + 1)
+
+    if (playerBlockClick === clickRemaining) {
+      // get new level
+      play()
+    }
   }
 
-  async function generatePattern () {
+  async function generatePatterns () {
     let randomNumber = getRandomNumber()
     // generate new number while the number is equal to the previous number
     const lastNumberInPattern = pattern[pattern.length - 1]
-    // while (lastNumberInPattern === randomNumber) {
-    //   randomNumber = getRandomNumber()
-    // }
+
     if (lastNumberInPattern === randomNumber) {
       if ((randomNumber += 1) === 9) {
         randomNumber -= 1
@@ -55,14 +63,15 @@ function App () {
       }
     }
     setPattern([...pattern, randomNumber])
-
     getPatterns()
   }
 
   function play () {
-    generatePattern()
+    generatePatterns()
     setLevel(level + 1)
+    // reset number of clicks available
     setPlayerBlockClick(0)
+    setClickRemaining(-1)
   }
 
   return (
@@ -75,14 +84,14 @@ function App () {
         <div className='flex flex-center'>
           <div className='blocks-container'>
             <Block value={1} blockClick={blockClick} />
-            <Block value={2} blockClick={blockClick}/>
-            <Block value={3} blockClick={blockClick}/>
-            <Block value={4} blockClick={blockClick}/>
-            <Block value={5} blockClick={blockClick}/>
-            <Block value={6} blockClick={blockClick}/>
-            <Block value={7} blockClick={blockClick}/>
-            <Block value={8} blockClick={blockClick}/>
-            <Block value={9} blockClick={blockClick}/>
+            <Block value={2} blockClick={blockClick} />
+            <Block value={3} blockClick={blockClick} />
+            <Block value={4} blockClick={blockClick} />
+            <Block value={5} blockClick={blockClick} />
+            <Block value={6} blockClick={blockClick} />
+            <Block value={7} blockClick={blockClick} />
+            <Block value={8} blockClick={blockClick} />
+            <Block value={9} blockClick={blockClick} />
           </div>
         </div>
         <div className='flex flex-center'>
