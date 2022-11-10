@@ -1,20 +1,17 @@
-import React ,{ memo} from "react";
+import React ,{ memo, useState} from "react";
 import BlockStyle from './BlockStyle.module.css'
 
 export default memo(function Block(props) {
-    const {value, activePattern, pattern} = props
-    
-    /**
-     * if pattern 
-     */
+    const {value, backgroundColor, blockClick, isShowingPattern} = props
 
+    // if showing pattern stops
+    // remove white background
     return (
         <button className={BlockStyle.block} 
-                value={props.value} 
-                onClick={props.blockClick}
-                style={{ backgroundColor: props.backgroundColor}}
+                value={value} 
+                onClick={blockClick}
+                style={{ backgroundColor: !isShowingPattern ? "#24AE9F" : backgroundColor}}
         >
-        
         </button>
     )
 })
