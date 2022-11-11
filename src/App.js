@@ -1,7 +1,9 @@
 import './App.css'
 import './UtilStyle.css'
 import Block from './components/Block'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import GameOverScreen from './components/GameOverScreen'
+import PlayGroundScreen from './components/PlayGroundScreen'
 
 function App () {
   const [pattern, setPattern] = useState([])
@@ -14,6 +16,7 @@ function App () {
   const [currentPatternCount, setCurrentPatternCount] = useState(0);
   const [isShowingPattern, setIsShowingPattern] = useState(false);
   const [isGameStarted, setIsGameStarted] = useState(false)
+  const [isGameOver, setIsGameOver] = useState(false)
 
   const blocks = blockValue.map(value=>{
     return (
@@ -28,6 +31,7 @@ function App () {
   })
   
   useEffect(() => {
+    
     async function start(){
       generatePatterns()
     // erase the old level data
@@ -43,6 +47,14 @@ function App () {
     setPlayerBlockClick(0)
     setClickRemaining(-1)
     setCurrentPatternCount(0)
+  }
+
+  function startNewGame(){
+    resetLevelData()
+    setPattern([])
+    setLevel(1)
+    setIsGameStarted(false)
+    setIsGameOver(false)
   }
 
   function delay (time) {
@@ -74,16 +86,24 @@ function App () {
     if (playerBlockClick <= clickRemaining) {
       if (value === getNumberInPattern) {
         console.log('correct')
+        if (playerBlockClick === clickRemaining) {
+          // get new level
+              play()
+        }
       } else {
         console.log('incorrect')
+        // save the level in
+        // localstorage if
+        // the current level is
+        // higher than the
+        const oldLevel = localStorage.getItem("highestLevel"); 
+        if((level -1) > oldLevel){
+          localStorage.setItem("highestLevel", `${(level -1)}`)
+        }
+        setIsGameOver(true);
       }
       setPlayerBlockClick(playerBlockClick + 1)
-    }
-
-    if (playerBlockClick === clickRemaining) {
-      // get new level
-      setLevel(level + 1)
-    }
+    }    
   }
 
   async function generatePatterns () {
@@ -92,12 +112,15 @@ function App () {
     const lastNumberInPattern = pattern[pattern.length - 1]
 
     // prevent numbers showing 2 times in a row
-    if (lastNumberInPattern === randomNumber) {
-      if ((randomNumber += 1) === 9) {
-        randomNumber -= 1
-      } else {
-        randomNumber += 1
-      }
+    // if (lastNumberInPattern === randomNumber) {
+    //   if ((randomNumber += 1) === 9) {
+    //     randomNumber -= 1
+    //   } else {
+    //     randomNumber += 1
+    //   }
+    // }
+    while(lastNumberInPattern === randomNumber){
+      randomNumber = getRandomNumber()
     }
     
     setPattern([...pattern, randomNumber])
@@ -123,23 +146,17 @@ function App () {
   return (
     <div className='App'>
       <main>
-        <div className='title-container'>
-          <p>{}</p>
-          <h1 className='m-0'>Memory Blocks</h1>
-          <p className='m-0'>How much pattern you can memorize?</p>
-        </div>
-        <div className='flex flex-center'>
-          <div className='blocks-container'>
-            {blocks}
-          </div>
-        </div>
-        <div className='flex flex-center'>
-          <div className='btn-play-container'>
-            <button className='btn-play' onClick={play}>
-              Play
-            </button>
-          </div>
-        </div>
+       {
+        isGameOver ?
+          <GameOverScreen level={level} startNewGame={startNewGame}/>
+        :
+          <PlayGroundScreen 
+            level={level}
+            play={play}
+            blocks={blocks}
+            isGameStarted={isGameStarted}
+          />
+       }
         <footer>
           <p>Created by: Darwin</p>
         </footer>

@@ -23,3 +23,10 @@
 .m-0{
     margin:0
 }
+
+.text-md{
+    font-size: 3rem;
+}
+.text-sm{
+    font-size: 1.2rem;
+}
