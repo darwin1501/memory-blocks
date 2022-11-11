@@ -13,9 +13,12 @@ function App () {
   const blockValue = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   const [currentPatternCount, setCurrentPatternCount] = useState(0);
   const [isShowingPattern, setIsShowingPattern] = useState(false);
+  const [isGameStarted, setIsGameStarted] = useState(false)
+
   const blocks = blockValue.map(value=>{
     return (
       <Block 
+              key={value}
               value={value} 
               blockClick={blockClick} 
               isShowingPattern={isShowingPattern}
@@ -24,7 +27,6 @@ function App () {
     )
   })
   
-
   useEffect(() => {
     async function start(){
       generatePatterns()
@@ -54,13 +56,13 @@ function App () {
   async function getPatterns () {
     setIsShowingPattern(true)
     for (let index = 0; index < pattern.length; index++) {
-      await delay(1000)
+      await delay(500)
       // set block effects
       setActivePattern(pattern[index])
       setClickRemaining(clickRemaining + 1)
       setCurrentPatternCount(currentPatternCount + 1)
     }
-    await(delay(1000))
+    await(delay(500))
     setIsShowingPattern(false)
   }
 
@@ -114,6 +116,7 @@ function App () {
   }
 
   function play () {
+    setIsGameStarted(true)
     setLevel(level + 1)
   }
 

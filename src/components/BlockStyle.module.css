@@ -4,3 +4,6 @@
     cursor: pointer;
     border: none;
 }
+.block:active{
+    background-color: white !important;
+}
