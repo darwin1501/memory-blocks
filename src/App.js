@@ -17,6 +17,7 @@ function App () {
   const [isShowingPattern, setIsShowingPattern] = useState(false);
   const [isGameStarted, setIsGameStarted] = useState(false)
   const [isGameOver, setIsGameOver] = useState(false)
+  const [levelsReached, setLevelReached] = useState([])
 
   const blocks = blockValue.map(value=>{
     return (
@@ -55,6 +56,7 @@ function App () {
     setLevel(1)
     setIsGameStarted(false)
     setIsGameOver(false)
+    setLevelReached([])
   }
 
   function delay (time) {
@@ -85,23 +87,30 @@ function App () {
 
     if (playerBlockClick <= clickRemaining) {
       if (value === getNumberInPattern) {
-        console.log('correct')
         if (playerBlockClick === clickRemaining) {
+          // record player level reached
+          // console.log(level -1)
+          setLevelReached([...levelsReached, level-1])
           // get new level
               play()
+          
         }
       } else {
-        console.log('incorrect')
         // save the level in
         // localstorage if
         // the current level is
-        // higher than the
+        // higher than the old highest level reached
         const oldLevel = localStorage.getItem("highestLevel"); 
         if((level -1) > oldLevel){
           localStorage.setItem("highestLevel", `${(level -1)}`)
         }
+        // save the player level completed
+        saveLevelCompleted(levelsReached)
+
         setIsGameOver(true);
       }
+      
+      // to prepare it for line chart
       setPlayerBlockClick(playerBlockClick + 1)
     }    
   }
@@ -119,6 +128,7 @@ function App () {
     //     randomNumber += 1
     //   }
     // }
+
     while(lastNumberInPattern === randomNumber){
       randomNumber = getRandomNumber()
     }
@@ -141,6 +151,71 @@ function App () {
   function play () {
     setIsGameStarted(true)
     setLevel(level + 1)
+  }
+
+  function saveLevelCompleted(levels){
+    const newPLayerLevelStats = {}
+    const getOldPlayerLevelStats = localStorage.getItem("playerLevelStats")
+
+    // assign properties
+    for (let index = 0; index < levels.length; index++) {
+      newPLayerLevelStats[`level ${levels[index]}`] = 1
+    }
+
+    // if the player played for the first time
+    if(getOldPlayerLevelStats === null){
+      // save the new player level played
+      localStorage.setItem("playerLevelStats", JSON.stringify(newPLayerLevelStats))
+    }else{
+      const getOldPlayerStats = localStorage.getItem("playerLevelStats")
+      const oldPlayerLevelStatsPropCount = Object.keys(JSON.parse(getOldPlayerStats)).length
+      const newPlayerLevelStatsPropCount = Object.keys(newPLayerLevelStats).length
+
+      /* if the current level played is
+      * greater than the old level played
+      * replace old labels in the player level stats by
+      * the new labels from the current player level stats
+      * */
+
+      const copyOfOldLevelPlayerStats = JSON.parse(getOldPlayerStats)
+
+      if(newPlayerLevelStatsPropCount > oldPlayerLevelStatsPropCount){
+          
+          // run for loop to access each property in object
+          for (let index = 0; index < newPlayerLevelStatsPropCount; index++) {
+
+            const key = Object.keys(copyOfOldLevelPlayerStats)[index]
+            const value = Object.values(copyOfOldLevelPlayerStats)[index]
+            
+            // if the property exist
+            if(key !== undefined){
+              // add 1 on each level reached 
+              copyOfOldLevelPlayerStats[`${key}`] = value + 1
+            }else{
+              // add the new property
+              copyOfOldLevelPlayerStats[`level ${index+1}`] = 1
+            }
+          }
+          // save to local storage
+          localStorage.setItem("playerLevelStats", JSON.stringify(copyOfOldLevelPlayerStats))
+      }else{
+        console.log("old")
+        console.log(newPlayerLevelStatsPropCount)
+        console.log(newPLayerLevelStats)
+        /* else
+        *   add 1 on each level reached 
+        * */
+          for (let index = 0; index < newPlayerLevelStatsPropCount; index++) {
+
+            const key = Object.keys(copyOfOldLevelPlayerStats)[index]
+            const value = Object.values(copyOfOldLevelPlayerStats)[index]
+            // add the new property
+            copyOfOldLevelPlayerStats[`${key}`] = value + 1
+          }
+        // save to local storage
+        localStorage.setItem("playerLevelStats", JSON.stringify(copyOfOldLevelPlayerStats))
+      }      
+    }
   }
 
   return (
