@@ -11,6 +11,7 @@ export default memo(function Block(props) {
                 value={value} 
                 onClick={blockClick}
                 style={{ backgroundColor: !isShowingPattern ? "#24AE9F" : backgroundColor}}
+                disabled = {isShowingPattern}
         >
         </button>
     )
