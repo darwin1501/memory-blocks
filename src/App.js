@@ -1,7 +1,7 @@
 import './App.css'
 import './UtilStyle.css'
 import Block from './components/Block'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, } from 'react'
 import GameOverScreen from './components/GameOverScreen'
 import PlayGroundScreen from './components/PlayGroundScreen'
 import {Link, Routes, Route} from "react-router-dom"
@@ -271,7 +271,7 @@ function App () {
               </>
             }/>
             <Route path='/playerstats' element={<PlayerStats getPlayerStats={getPlayerStats}/>} />
-            </Routes>
+          </Routes>
        }
         <footer>
           <p>Created by: Darwin</p>
