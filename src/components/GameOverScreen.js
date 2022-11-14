@@ -2,17 +2,7 @@ import React from "react";
 import LineChart from "./LineChart";
 
 export default function GameOverScreen(props){
-  const playerLevelStats = JSON.parse(localStorage.getItem("playerLevelStats"))
-  const playerLevelStatsPropCount = Object.keys(playerLevelStats).length
-  const labels = []
-  const data = []
-
-  for (let index = 0; index < playerLevelStatsPropCount; index++) {
-    const key = Object.keys(playerLevelStats)[index]
-    const value = Object.values(playerLevelStats)[index]
-    labels.push(key)
-    data.push(value)
-  }
+  const [labels, data] = props.getPlayerStats()
     return(
         <>
           <div className='title-container'>

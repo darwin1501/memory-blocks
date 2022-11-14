@@ -4,6 +4,8 @@ import Block from './components/Block'
 import { useState, useEffect, useRef } from 'react'
 import GameOverScreen from './components/GameOverScreen'
 import PlayGroundScreen from './components/PlayGroundScreen'
+import {Link, Routes, Route} from "react-router-dom"
+import PlayerStats from './components/PlayerStats'
 
 function App () {
   const [pattern, setPattern] = useState([])
@@ -18,6 +20,7 @@ function App () {
   const [isGameStarted, setIsGameStarted] = useState(false)
   const [isGameOver, setIsGameOver] = useState(false)
   const [levelsReached, setLevelReached] = useState([])
+  const [bg, setBg] = useState("#390930")
 
   const blocks = blockValue.map(value=>{
     return (
@@ -87,12 +90,13 @@ function App () {
 
     if (playerBlockClick <= clickRemaining) {
       if (value === getNumberInPattern) {
+        // if the player hit the last pattern
         if (playerBlockClick === clickRemaining) {
-          // record player level reached
-          // console.log(level -1)
+          //flash background color
+          flashBg("#4F0B42")
           setLevelReached([...levelsReached, level-1])
           // get new level
-              play()
+          play()
           
         }
       } else {
@@ -104,6 +108,7 @@ function App () {
         if((level -1) > oldLevel){
           localStorage.setItem("highestLevel", `${(level -1)}`)
         }
+        flashBg("#851616")
         // save the player level completed
         saveLevelCompleted(levelsReached)
 
@@ -218,19 +223,55 @@ function App () {
     }
   }
 
+  function getPlayerStats(){
+    const playerLevelStats = JSON.parse(localStorage.getItem("playerLevelStats"))
+    const playerLevelStatsPropCount = Object.keys(playerLevelStats).length
+    const labels = []
+    const data = []
+
+    for (let index = 0; index < playerLevelStatsPropCount; index++) {
+      const key = Object.keys(playerLevelStats)[index]
+      const value = Object.values(playerLevelStats)[index]
+      labels.push(key)
+      data.push(value)
+    }
+
+    return [labels, data]
+  }
+
+  async function flashBg(color){
+    setBg(color)
+    await delay(200)
+    setBg("#390930")
+  }
+
   return (
-    <div className='App'>
+    <div className='App' style={{background: bg}}>
       <main>
        {
         isGameOver ?
-          <GameOverScreen level={level} startNewGame={startNewGame}/>
-        :
-          <PlayGroundScreen 
-            level={level}
-            play={play}
-            blocks={blocks}
-            isGameStarted={isGameStarted}
+          <GameOverScreen 
+            level={level} 
+            startNewGame={startNewGame}
+            getPlayerStats={getPlayerStats}
           />
+        :          
+          <Routes>
+            <Route path='/' element={
+              <>
+              <Link to="/playerstats">
+                Player Stats
+              </Link>
+                <PlayGroundScreen 
+                  level={level}
+                  play={play}
+                  blocks={blocks}
+                  isGameStarted={isGameStarted}
+                />
+              </>
+            }/>
+            <Route path='/playerstats' element={<PlayerStats getPlayerStats={getPlayerStats}/>} />
+            </Routes>
        }
         <footer>
           <p>Created by: Darwin</p>
