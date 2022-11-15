@@ -7,15 +7,16 @@ export default function PlayerStats(props) {
 
   return (
     <div>
-      <Link to="/">Home</Link>
       <div className="title-container">
         <p className="text-sm">
           <strong>Highest Level Reached:</strong>{" "}
           {localStorage.getItem("highestLevel")}
         </p>
       </div>
-      <div className="chart-container">
-        <LineChart labels={labels} data={data} />
+      <div className="flex flex-center">
+        <div className="chart-container">
+          <LineChart labels={labels} data={data} />
+        </div>
       </div>
     </div>
   );

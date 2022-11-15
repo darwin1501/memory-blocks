@@ -19,7 +19,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: "Chart.js Line Chart",
+      text: "Completed Levels",
     },
   },
 };
@@ -43,7 +43,7 @@ export default function LineChart(props) {
         datasets: [
           {
             id: 1,
-            label: "Numbers of Level Completed",
+            label: "Number of Completion",
             data: props.data,
             borderColor: "rgb(53, 162, 235)",
             backgroundColor: "rgba(53, 162, 235, 0.5)",

@@ -2,15 +2,15 @@ import React from "react";
 
 export default function PlayGroundScreen(props){
     return(
-        <>
+        <div className="main-screen">
          <div className='title-container'>
            {
              props.isGameStarted ?
              <h1>Level: {props.level -1}</h1>
              :
              <>
-               <h1 className='m-0'>Memory Blocks</h1>
-               <p className='m-0'>How much pattern you can memorize?</p>
+               <h1 className='m-0 title'>Memory Blocks</h1>
+               <p className='m-0 sub-title'>How much pattern you can memorize?</p>
              </>
            }
          </div>
@@ -29,6 +29,6 @@ export default function PlayGroundScreen(props){
              }
            </div>
          </div>
-       </>
+       </div>
     )
 }

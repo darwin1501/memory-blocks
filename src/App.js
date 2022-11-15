@@ -268,7 +268,13 @@ function App() {
               path="/"
               element={
                 <>
-                  <Link to="/playerstats">Player Stats</Link>
+                  {!isGameStarted && (
+                    <Link to="/playerstats" style={{ textDecoration:'none' }}>
+                      <div className="flex flex-end">
+                          <p className="nav-text">Your Stats</p>
+                      </div>
+                    </Link>
+                  )}
                   <PlayGroundScreen
                     level={level}
                     play={play}
@@ -280,13 +286,27 @@ function App() {
             />
             <Route
               path="/playerstats"
-              element={<PlayerStats getPlayerStats={getPlayerStats} />}
+              element={
+                <>
+                <Link to="/" style={{ textDecoration:'none' }}>
+                  <div className="flex flex-start">
+                      <p className="nav-text">Play the Game</p>
+                  </div>
+                </Link>
+                  <div className="title-container">
+                    <p className="text-md m-0">Your Stats</p>
+                  </div>
+                  <PlayerStats getPlayerStats={getPlayerStats} />
+                </>
+              }
             />
           </Routes>
         )}
-        <footer>
-          <p>Created by: Darwin</p>
-        </footer>
+        <a href="https://darwin1501.github.io" target="_blank">
+          <footer>
+            <p>Created by: Darwin</p>
+          </footer>
+        </a>
       </main>
     </div>
   );
