@@ -126,15 +126,6 @@ function App() {
     // generate new number while the number is equal to the previous number
     const lastNumberInPattern = pattern[pattern.length - 1];
 
-    // prevent numbers showing 2 times in a row
-    // if (lastNumberInPattern === randomNumber) {
-    //   if ((randomNumber += 1) === 9) {
-    //     randomNumber -= 1
-    //   } else {
-    //     randomNumber += 1
-    //   }
-    // }
-
     while (lastNumberInPattern === randomNumber) {
       randomNumber = getRandomNumber();
     }
