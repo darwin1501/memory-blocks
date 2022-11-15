@@ -21,6 +21,8 @@ function App() {
   const [isGameOver, setIsGameOver] = useState(false);
   const [levelsReached, setLevelReached] = useState([]);
   const [bg, setBg] = useState("#390930");
+  const [isCustomGameSpeed, setIsCustomGameSpeed] = useState(false);
+  const [customGameSpeed, setCustomGameSpeed] = useState(400)
 
   const blocks = blockValue.map((value) => {
     return (
@@ -69,16 +71,17 @@ function App() {
     return Math.floor(Math.random() * 9) + 1;
   }
 
-  async function getPatterns() {
+  async function showPattern() {
+    const time = isCustomGameSpeed ? customGameSpeed : 500
     setIsShowingPattern(true);
     for (let index = 0; index < pattern.length; index++) {
-      await delay(500);
+      await delay(time);
       // set block effects
       setActivePattern(pattern[index]);
       setClickRemaining(clickRemaining + 1);
       setCurrentPatternCount(currentPatternCount + 1);
     }
-    await delay(500);
+    await delay(time);
     setIsShowingPattern(false);
   }
 
@@ -137,7 +140,7 @@ function App() {
     }
 
     setPattern([...pattern, randomNumber]);
-    await getPatterns();
+    await showPattern();
   }
 
   function backgroundColorSetter(value) {
@@ -247,6 +250,27 @@ function App() {
     return [labels, data];
   }
 
+  function handleUseCustomGameSpeed(){
+    setIsCustomGameSpeed(!isCustomGameSpeed)
+  }
+
+  function increaseGameSpeed(){
+    let speed = customGameSpeed - 100
+    if(speed < 100){
+      speed = 100
+    }
+    setCustomGameSpeed(speed)
+  }
+
+  function decreaseGameSpeed(){
+    let speed = customGameSpeed + 100
+    if(speed > 1000){
+      speed = 1000
+    }
+    setCustomGameSpeed(speed)
+  }
+
+
   async function flashBg(color) {
     setBg(color);
     await delay(200);
@@ -280,6 +304,11 @@ function App() {
                     play={play}
                     blocks={blocks}
                     isGameStarted={isGameStarted}
+                    isCustomGameSpeed={isCustomGameSpeed}
+                    handleUseCustomGameSpeed={handleUseCustomGameSpeed}
+                    customGameSpeed={customGameSpeed}
+                    increaseGameSpeed={increaseGameSpeed}
+                    decreaseGameSpeed={decreaseGameSpeed}
                   />
                 </>
               }

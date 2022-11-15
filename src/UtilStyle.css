@@ -2,6 +2,13 @@
     display: flex;
 }
 
+.btn-arrow{
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
 .btn-play{
     border: none;
     border-radius: 5px;
@@ -13,6 +20,9 @@
     font-weight: bolder;
     padding: 20px;
     width: 250px;
+}
+.no-bd{
+    border:none
 }
 .flex-start{
     justify-content: flex-start;
@@ -27,9 +37,30 @@
     justify-content: flex-end;
 }
 
+.gap-sm{
+    gap: 10px;
+}
+
+.gap-md{
+    gap: 20px;
+}
+
 .m-0{
     margin:0
 }
+
+.m-auto{
+    margin: auto
+}
+
+.mt-sm{
+    margin-top: 10px;
+}
+
+.mt-md{
+    margin-top: 20px;
+}
+
 
 .nav-text{
     text-decoration: none !important;
@@ -41,4 +72,16 @@
 }
 .text-sm{
     font-size: 1.2rem;
+}
+.pad-sm{
+    padding: 5px
+}
+.pad-md{
+    padding: 15px;
+}
+.w-sm{
+    width: 50px
+}
+.w-md{
+    width: 60px;
 }
