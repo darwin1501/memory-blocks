@@ -22,7 +22,7 @@ function App() {
   const [levelsReached, setLevelReached] = useState([]);
   const [bg, setBg] = useState("#390930");
   const [isCustomGameSpeed, setIsCustomGameSpeed] = useState(false);
-  const [customGameSpeed, setCustomGameSpeed] = useState(400)
+  const [customGameSpeed, setCustomGameSpeed] = useState(400);
 
   const blocks = blockValue.map((value) => {
     return (
@@ -72,7 +72,7 @@ function App() {
   }
 
   async function showPattern() {
-    const time = isCustomGameSpeed ? customGameSpeed : 500
+    const time = isCustomGameSpeed ? customGameSpeed : 500;
     setIsShowingPattern(true);
     for (let index = 0; index < pattern.length; index++) {
       await delay(time);
@@ -211,9 +211,6 @@ function App() {
           JSON.stringify(copyOfOldLevelPlayerStats)
         );
       } else {
-        console.log("old");
-        console.log(newPlayerLevelStatsPropCount);
-        console.log(newPLayerLevelStats);
         /* else
          *   add 1 on each level reached
          * */
@@ -250,24 +247,24 @@ function App() {
     return [labels, data];
   }
 
-  function handleUseCustomGameSpeed(){
-    setIsCustomGameSpeed(!isCustomGameSpeed)
+  function handleUseCustomGameSpeed() {
+    setIsCustomGameSpeed(!isCustomGameSpeed);
   }
 
-  function increaseGameSpeed(){
-    let speed = customGameSpeed - 100
-    if(speed < 100){
-      speed = 100
+  function increaseGameSpeed() {
+    let speed = customGameSpeed - 100;
+    if (speed < 100) {
+      speed = 100;
     }
-    setCustomGameSpeed(speed)
+    setCustomGameSpeed(speed);
   }
 
-  function decreaseGameSpeed(){
-    let speed = customGameSpeed + 100
-    if(speed > 1000){
-      speed = 1000
+  function decreaseGameSpeed() {
+    let speed = customGameSpeed + 100;
+    if (speed > 1000) {
+      speed = 1000;
     }
-    setCustomGameSpeed(speed)
+    setCustomGameSpeed(speed);
   }
 
   async function flashBg(color) {
@@ -292,9 +289,9 @@ function App() {
               element={
                 <>
                   {!isGameStarted && (
-                    <Link to="/playerstats" style={{ textDecoration:'none' }}>
+                    <Link to="/playerstats" style={{ textDecoration: "none" }}>
                       <div className="flex flex-end">
-                          <p className="nav-text text-important">Your Stats</p>
+                        <p className="nav-text text-important">Your Stats</p>
                       </div>
                     </Link>
                   )}
@@ -316,11 +313,11 @@ function App() {
               path="/playerstats"
               element={
                 <>
-                <Link to="/" style={{ textDecoration:'none' }}>
-                  <div className="flex flex-start">
+                  <Link to="/" style={{ textDecoration: "none" }}>
+                    <div className="flex flex-start">
                       <p className="nav-text text-important">Play the Game</p>
-                  </div>
-                </Link>
+                    </div>
+                  </Link>
                   <div className="title-container">
                     <p className="text-md m-0">Your Stats</p>
                   </div>
@@ -332,8 +329,11 @@ function App() {
         )}
         <a href="https://darwin1501.github.io" target="_blank">
           <footer>
-            <p className="text-important footer-text" style={{ width: "150px", margin: "auto"}}>
-                  Created by: Darwin
+            <p
+              className="text-important footer-text"
+              style={{ width: "150px", margin: "auto" }}
+            >
+              Created by: Darwin
             </p>
           </footer>
         </a>
