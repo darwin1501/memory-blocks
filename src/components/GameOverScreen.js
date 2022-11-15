@@ -10,9 +10,6 @@ export default function GameOverScreen(props) {
         <h1 className="m-0">Level: {props.level - 1}</h1>
         <p className="text-md m-0">Game Over</p>
       </div>
-      {/* <div className="chart-container">
-        <LineChart labels={labels} data={data} />
-      </div> */}
       <PlayerStats getPlayerStats={props.getPlayerStats}/>
       <div className="btn-play-container">
         <button className="btn-play" onClick={props.startNewGame}>

@@ -13,6 +13,7 @@ export default memo(function Block(props) {
       onClick={blockClick}
       style={{
         backgroundColor: !isShowingPattern ? "#24AE9F" : backgroundColor,
+        boxShadow: isShowingPattern && backgroundColor === "white" ? "1px 1px 15px 10px #801560" : ""
       }}
       disabled={isShowingPattern}
     ></button>

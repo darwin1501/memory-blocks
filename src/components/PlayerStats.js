@@ -6,7 +6,7 @@ export default function PlayerStats(props) {
   const [labels, data] = props.getPlayerStats();
 
   return (
-    <div>
+    <>
       <div className="title-container">
         <p className="text-sm">
           <strong>Highest Level Reached:</strong>{" "}
@@ -18,6 +18,6 @@ export default function PlayerStats(props) {
           <LineChart labels={labels} data={data} />
         </div>
       </div>
-    </div>
+    </>
   );
 }

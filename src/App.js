@@ -270,7 +270,6 @@ function App() {
     setCustomGameSpeed(speed)
   }
 
-
   async function flashBg(color) {
     setBg(color);
     await delay(200);
@@ -295,7 +294,7 @@ function App() {
                   {!isGameStarted && (
                     <Link to="/playerstats" style={{ textDecoration:'none' }}>
                       <div className="flex flex-end">
-                          <p className="nav-text">Your Stats</p>
+                          <p className="nav-text text-important">Your Stats</p>
                       </div>
                     </Link>
                   )}
@@ -319,7 +318,7 @@ function App() {
                 <>
                 <Link to="/" style={{ textDecoration:'none' }}>
                   <div className="flex flex-start">
-                      <p className="nav-text">Play the Game</p>
+                      <p className="nav-text text-important">Play the Game</p>
                   </div>
                 </Link>
                   <div className="title-container">
@@ -333,7 +332,9 @@ function App() {
         )}
         <a href="https://darwin1501.github.io" target="_blank">
           <footer>
-            <p>Created by: Darwin</p>
+            <p className="text-important footer-text" style={{ width: "150px", margin: "auto"}}>
+                  Created by: Darwin
+            </p>
           </footer>
         </a>
       </main>

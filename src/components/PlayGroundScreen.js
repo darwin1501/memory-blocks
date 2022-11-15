@@ -71,10 +71,10 @@ export default function PlayGroundScreen(props){
           {
             !isGameStarted &&
             <div className="flex flex-center">
-              <di className="flex flex-center gap-sm">
+              <div className="flex flex-center gap-sm">
                 <input type="checkbox" checked={isCustomGameSpeed} onChange={handleUseCustomGameSpeed} style={{height: "25px",  width: "25px"}}/>
                 <p style={{color: "white"}}>Change Speed?</p>
-              </di>
+              </div>
             </div>
           }
         {
@@ -84,7 +84,7 @@ export default function PlayGroundScreen(props){
                  <button className="w-md btn-arrow" onClick={decreaseGameSpeed}>
                     <img src={arrowLeft} alt="arrow left"/>
                  </button>
-                 <div className="pad-md" style={{textAlign: "center", width: "80px"}}>
+                 <div className="pad-sm" style={{textAlign: "center", width: "80px"}}>
                   <p style={{color: "white"}}>
                     {
                       setCustomGameSpeedLabel(customGameSpeed)

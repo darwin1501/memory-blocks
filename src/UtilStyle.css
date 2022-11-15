@@ -67,6 +67,18 @@
     color: white;
 }
 
+/* 
+padding: "10px", 
+                background: "#4F0B42",
+                borderRadius: "5px" 
+*/
+
+.text-important{
+    background: #4F0B42;
+    border-radius: 5px;
+    padding: 10px;
+}
+
 .text-md{
     font-size: 3rem;
 }

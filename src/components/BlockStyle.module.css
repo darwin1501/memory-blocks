@@ -3,7 +3,9 @@
     border-radius: 8px;
     cursor: pointer;
     border: none;
+    transition-duration: 100ms;
 }
 .block:active{
     background-color: white !important;
+    box-shadow: 1px 1px 15px 10px #801560;
 }

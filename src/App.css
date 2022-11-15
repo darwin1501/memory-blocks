@@ -9,11 +9,14 @@
   text-align: center;
   width: 100vw;
   position: relative;
+  transition-duration: 300ms;
 }
 .chart-container{
   background-color: white;
   width: 100%;
   margin: auto;
+  padding: 15px;
+  border-radius: 5px;
 }
 main{
   margin-left: 5%;
@@ -35,18 +38,28 @@ main{
 
 }
 .btn-play-container{
-  margin-top: 50px;
+  margin-top: 20px;
 }
 footer{
   color: white;
   font-family: inherit;
-  bottom: 20px;
+  bottom: 40px;
   left: 0;
   right: 0;
   position: absolute;
   cursor: pointer;
 }
+.footer-text{
+  transition-duration: 200ms;
+}
 
+footer:hover .footer-text{
+  box-shadow: 1px 1px 15px 10px #801560;
+}
+
+/* .footer-text:hover{
+  box-shadow: 1px 1px 15px 10px #801560;
+} */
 .title{
   font-size: 2.5rem;
 }
@@ -59,20 +72,10 @@ footer{
 
 @media only screen and (min-width: 400px) {
   .blocks-container{
-    --block-size: 95px;
+    --block-size: 90px;
   }
 }
 @media only screen and (min-width: 650px) {
-  .chart-container{
-    width: 80%;
-  }
-}
-@media only screen and (min-width: 800px){
-  .chart-container{
-    width: 50%;
-  }
-}
-@media only screen and (min-width: 100px) {
   .chart-container{
     width: 450px;
   }
