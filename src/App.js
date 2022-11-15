@@ -279,7 +279,9 @@ function App() {
               path="/"
               element={
                 <>
-                  {!isGameStarted && (
+                  {
+                  localStorage.getItem("playerLevelStats") !== null &&
+                  !isGameStarted && (
                     <Link to="/playerstats" style={{ textDecoration: "none" }}>
                       <div className="flex flex-end">
                         <p className="nav-text text-important">Your Stats</p>
