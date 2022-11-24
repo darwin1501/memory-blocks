@@ -320,11 +320,11 @@ function App() {
             />
           </Routes>
         )}
-        <a href="https://darwin1501.github.io" target="_blank">
+        <a href="https://darwin1501.github.io" target="_blank" rel="noreferrer">
           <footer>
             <p
               className="text-important footer-text"
-              style={{ width: "150px", margin: "auto" }}
+              style={{ width: "220px", margin: "auto" }}
             >
               Created by: Darwin
             </p>
